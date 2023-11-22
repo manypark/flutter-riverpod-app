@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_app/presentation/providers/providers.dart';
+import 'package:riverpod_app/presentation/screens/providers/providers.dart';
 
 class FamilyFutureScreen extends ConsumerStatefulWidget {
-  
   const FamilyFutureScreen({super.key});
 
   @override
@@ -11,13 +10,11 @@ class FamilyFutureScreen extends ConsumerStatefulWidget {
 }
 
 class FamilyFutureScreenState extends ConsumerState<FamilyFutureScreen> {
-
   int pokemonId = 1;
 
   @override
   Widget build(BuildContext context) {
-
-    final pokemonAsync = ref.watch( pokemonProvider(pokemonId) );
+    final pokemonAsync = ref.watch(PokemonProvider(pokemonId));
 
     return Scaffold(
       appBar: AppBar(
@@ -25,18 +22,35 @@ class FamilyFutureScreenState extends ConsumerState<FamilyFutureScreen> {
       ),
       body: Center(
         child: pokemonAsync.when(
-          data    : (name) => Text(name, style: const TextStyle( fontSize: 34 ) ),
-          error   : (_, __) => const Text('No se pudo ncargar el nombre'), 
-          loading : () => const CircularProgressIndicator()
-        ),
+            data: (name) => Text(name, style: const TextStyle(fontSize: 34)),
+            error: (_, __) => const Text('No se pudo cargar el nombre'),
+            loading: () => const CircularProgressIndicator()),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon( Icons.refresh ),
-        onPressed: () {
-          setState(() {
-            pokemonId++;
-          });
-        },
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: 'btn-1',
+            child: const Icon(Icons.refresh),
+            onPressed: () {
+              pokemonId++;
+              setState(() {});
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.do_not_disturb_on_total_silence_rounded),
+            onPressed: () {
+              if (pokemonId <= 1) return;
+
+              pokemonId--;
+
+              setState(() {});
+            },
+          )
+        ],
       ),
     );
   }

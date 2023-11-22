@@ -1,9 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_app/config/config.dart';
 
-final counterProvider = StateProvider.autoDispose<int>( (ref) {
-  return 0;
-});
+final counterProvider = StateProvider.autoDispose<int>( (ref) => 0 );
 
 final isDarkModeProvider = StateProvider<bool>((ref) {
   return false;

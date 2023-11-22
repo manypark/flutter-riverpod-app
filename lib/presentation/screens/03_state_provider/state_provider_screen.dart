@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_app/presentation/screens/providers/providers.dart';
-// import 'package:riverpod_app/presentation/providers/providers.dart';
 
 class StateProviderScreen extends ConsumerWidget {
   const StateProviderScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final counter = ref.watch(counterProvider);
-    final isDarkMode = ref.watch(darkModeProvider);
+
+    final counter     = ref.watch( counterProvider );
+    final isDarkMode  = ref.watch( darkModeProvider );
     final randomName  = ref.watch( randomNameProvider );
 
     return Scaffold(
@@ -51,9 +51,9 @@ class StateProviderScreen extends ConsumerWidget {
         ],
       )),
       floatingActionButton: FloatingActionButton.extended(
-        label: const Text('Nombre aleatorio'),
-        icon: const Icon(Icons.refresh_rounded),
-        onPressed: () {
+        label     : const Text('Nombre aleatorio'),
+        icon      : const Icon(Icons.refresh_rounded),
+        onPressed : () {
           // Vuelve a generer el provider, stream, future
           ref.invalidate( randomNameProvider );
         },

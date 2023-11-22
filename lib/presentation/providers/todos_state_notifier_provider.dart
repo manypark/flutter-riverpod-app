@@ -12,7 +12,7 @@ final filteredGuesProvider = Provider<List<Todo>>((ref) {
   final selectFilter = ref.watch( todoFilterProvider);
   final todos = ref.watch( todosStateNotifierProvider );
 
-  switch(selectFilter){
+  switch(selectFilter) {
     
     case TodoFilter.all:
       return todos;

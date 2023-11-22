@@ -6,11 +6,11 @@ part of 'state_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$counterHash() => r'a5d5658f9ecbfee8b1a1ceb4e657113bc5c437b3';
+String _$counterHash() => r'649fe78777e65974f918c36a9b7d20a65bd3465f';
 
 /// See also [Counter].
 @ProviderFor(Counter)
-final counterProvider = AutoDisposeNotifierProvider<Counter, int>.internal(
+final counterProvider = NotifierProvider<Counter, int>.internal(
   Counter.new,
   name: r'counterProvider',
   debugGetCreateSourceHash:
@@ -19,12 +19,12 @@ final counterProvider = AutoDisposeNotifierProvider<Counter, int>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$Counter = AutoDisposeNotifier<int>;
-String _$darkModeHash() => r'54d687970391283e693e0beb87bef8e54d34d8da';
+typedef _$Counter = Notifier<int>;
+String _$darkModeHash() => r'd19eeed7fa67a08c366852464a46b8efb61b3e9e';
 
 /// See also [DarkMode].
 @ProviderFor(DarkMode)
-final darkModeProvider = AutoDisposeNotifierProvider<DarkMode, bool>.internal(
+final darkModeProvider = NotifierProvider<DarkMode, bool>.internal(
   DarkMode.new,
   name: r'darkModeProvider',
   debugGetCreateSourceHash:
@@ -33,13 +33,12 @@ final darkModeProvider = AutoDisposeNotifierProvider<DarkMode, bool>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$DarkMode = AutoDisposeNotifier<bool>;
-String _$randomNameHash() => r'0adba4a5b345569045c1d2e87adb30d4075c0f67';
+typedef _$DarkMode = Notifier<bool>;
+String _$randomNameHash() => r'e6b8e4cae658dd3f281e2a4212f2db2b8840f598';
 
 /// See also [RandomName].
 @ProviderFor(RandomName)
-final randomNameProvider =
-    AutoDisposeNotifierProvider<RandomName, String>.internal(
+final randomNameProvider = NotifierProvider<RandomName, String>.internal(
   RandomName.new,
   name: r'randomNameProvider',
   debugGetCreateSourceHash:
@@ -48,6 +47,6 @@ final randomNameProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$RandomName = AutoDisposeNotifier<String>;
+typedef _$RandomName = Notifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

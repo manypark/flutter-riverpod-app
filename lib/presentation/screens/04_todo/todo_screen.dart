@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_app/presentation/providers/providers.dart';
+import 'package:riverpod_app/config/config.dart';
+import 'package:riverpod_app/presentation/screens/providers/providers.dart';
+// import 'package:riverpod_app/presentation/providers/providers.dart';
 
 class TodoScreen extends ConsumerWidget {
-
   const TodoScreen({super.key});
 
   @override
@@ -14,11 +15,14 @@ class TodoScreen extends ConsumerWidget {
       ),
       body: const _TodoView(),
       floatingActionButton: FloatingActionButton(
-        child: const Icon( Icons.add ),
+        child: const Icon(Icons.add),
         onPressed: () {
-          ref.read(todosProvider.notifier).update((state) => [
-            ...state,
-          ]);
+          // ref.read(todosProvider.notifier).update((state) => [
+          //   ...state,
+          // ]);
+          ref
+              .read(todosProvider.notifier)
+              .addTodo(RandomGenerator.getRandomName());
         },
       ),
     );
@@ -26,13 +30,11 @@ class TodoScreen extends ConsumerWidget {
 }
 
 class _TodoView extends ConsumerWidget {
-
   const _TodoView();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    final currentFilter = ref.watch(todoFilterProvider);
+    final currentFilter = ref.watch(todoCurrentFilterProvider);
     // final todos = ref.watch(todosProvider);
     final todos = ref.watch(filteredTodosProvider);
 
@@ -44,36 +46,40 @@ class _TodoView extends ConsumerWidget {
         ),
 
         SegmentedButton(
-          segments: const[
-            ButtonSegment(value: TodoFilter.all, icon: Text('Todos' ) ),
-            ButtonSegment(value: TodoFilter.completed, icon: Text('Invitados')),
-            ButtonSegment(value: TodoFilter.pending , icon: Text('No invitados')),
-          ], 
-          selected: <TodoFilter>{ currentFilter },
+          segments: const [
+            ButtonSegment(value: FilterType.all, icon: Text('Todos')),
+            ButtonSegment(value: FilterType.completed, icon: Text('Invitados')),
+            ButtonSegment(
+                value: FilterType.pending, icon: Text('No invitados')),
+          ],
+          selected: <FilterType>{currentFilter},
           onSelectionChanged: (value) {
-            ref.read( todoFilterProvider.notifier ).update( (state) => value.first );
+            // ref.read( todoFilterProvider.notifier ).update( (state) => value.first );
+            ref
+                .read(todoCurrentFilterProvider.notifier)
+                .changeFilter(value.first);
           },
         ),
-        const SizedBox( height: 5 ),
+
+        const SizedBox(height: 5),
 
         /// Listado de personas a invitar
         Expanded(
           child: ListView.builder(
-            itemCount   : todos.length,
-            itemBuilder : (context, index) {
-
+            itemCount: todos.length,
+            itemBuilder: (context, index) {
               final todo = todos[index];
 
               return SwitchListTile(
-                title: Text( todo.description ),
-                value: todo.done, 
-                onChanged: ( value ) {}
-              );
+                  title: Text(todo.description),
+                  value: todo.done,
+                  onChanged: (value) {
+                    ref.read(todosProvider.notifier).toggleTodo( todo.id );
+                  });
             },
           ),
         )
       ],
     );
   }
-
 }
